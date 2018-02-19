@@ -10,6 +10,8 @@ include_once('navbar_voting.php');
   margin-top:15px;
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="static/js/moment.min.js"></script>
 <script src="static/js/connect.js"></script>
 <script src="static/js/qr.js"></script>
 <body class="p-3 mb-2 bg-light ">
@@ -293,9 +295,81 @@ var c=1;var d=1;
 	{
 		if(participants[h]==details[2])
 			{var check;
-			console.log("success");//so the present user takes part in election id[0]. Display these details	
+			console.log("success");//so the present user takes part in election id[i]. Display these details	
 			check=register.checkIfVoted(electionID[i][0].c[0],details[0]);
-			if(check==false)
+			//now we have to check if the given election is active or not. For this compare the starting and ending dates as below.[LONG CODE COULD BE REUSED]
+			var today = moment().format('MM/DD/YYYY');
+			var dayCurrentString=today.slice(3,5);var dayCurrentInt=parseInt(dayCurrentString);
+			var monthCurrentString=today.slice(0,2);var monthCurrentInt=parseInt(monthCurrentString);
+			var yearCurrentString=today.slice(6,10);var yearCurrentInt=parseInt(yearCurrentString);
+			var start=electionID[i][1];
+			var dayStartString=start.slice(3,5);var dayStartInt=parseInt(dayStartString);
+			var monthStartString=start.slice(0,2);var monthStartInt=parseInt(monthStartString);
+			var yearStartString=start.slice(6,10);var yearStartInt=parseInt(yearStartString);
+			//console.log(dayStartInt);console.log(monthStartInt);console.log(yearStartInt);
+			//comparing the dates. both flags 0 means it is active else not.
+			var flag1=0;var flag2=0;
+
+			if(yearCurrentInt<yearStartInt)
+				{
+				flag1=1;
+				}
+			else if(yearCurrentInt==yearStartInt)
+				{
+				if(monthCurrentInt<monthStartInt)
+					{flag1=1;}
+				else if(monthCurrentInt==monthStartInt)
+					{
+					if(dayCurrentInt<dayStartInt)
+						{flag1=1;}
+					else if(dayCurrentInt==dayStartInt)
+						{flag1=0;}			
+					}
+				}
+
+			//console.log("flag 1:"+flag1);
+
+
+			//getting end dates
+			var end=electionID[i][2];
+			var dayEndString=end.slice(3,5);var dayEndInt=parseInt(dayEndString);
+			var monthEndString=end.slice(0,2);var monthEndInt=parseInt(monthEndString);
+			var yearEndString=end.slice(6,10);var yearEndInt=parseInt(yearEndString);
+			//console.log(dayEndInt);console.log(monthEndInt);console.log(yearEndInt);
+			if(yearCurrentInt>yearEndInt)
+				{
+				flag2=1;
+				}
+			else if(yearCurrentInt==yearEndInt)
+				{
+				if(monthCurrentInt>monthEndInt)
+					{flag2=1;}
+				else if(monthCurrentInt==monthEndInt)
+					{
+					if(dayCurrentInt>dayEndInt)
+						{flag2=1;}
+					else if(dayCurrentInt==dayEndInt)
+						{flag2=0;}			
+					}
+				}
+
+			console.log("flag 2:"+flag2);
+			var active;var activity;
+			//tells whether the current election is active or not. Can only vote for active elections.
+			if((flag1==0)&&(flag2==0))
+				{
+				active="Active";
+				activity=1;	
+				}
+			else
+				{
+				activity=0;
+				active="Inactive";
+				}
+
+
+
+			if(check==false && active=="Active")
 				{
 					$("#notvoted").append("<hr>Election ID: <strong>"+electionID[i][0].c[0]+"</strong><br>"+"Candidates Standing	:");
 					for(var n=1;n<c;n++)
@@ -309,7 +383,7 @@ var c=1;var d=1;
 					$("#notvoted").append("<br><button type='button' class='open-vote btn btn-primary' data-id="+electionID[i][0].c[0]+" data-cast=0 data-target='#vote' data-toggle='modal'>Cast your vote</button>");	
 					$("#notvoted").append("<hr>");
 				}
-			else
+			else if(check==true && active=="Active")
 				{
 					$("#voted").append("<hr>Election ID: <strong>"+electionID[i][0].c[0]+"</strong><br>"+"Candidates Standing	:");
 					for(var n=1;n<c;n++)

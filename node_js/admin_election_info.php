@@ -115,6 +115,7 @@ var d=1;var c=1;var electionID=<?php echo $id;?>;
 var voteIndex;var largest=0;var winner;
 if(activity==0)
 {$("#electionStatus").html("");}
+//fetching the election candidate and participant list
 for(var k=1;k<=50;k++)
 	{
 		flag=register.returnParticipantList(electionID,k);	
@@ -150,6 +151,7 @@ if(activity==1)
 else
 
 	{	$("#electionStatus").append("<h4><strong>This election is over and below are the results of the same.</h4></strong><table class='table table-striped table-dark table-hover'><thead><tr><th scope='col'>#</th><th scope='col'>Candidate Name</th><th scope='col'>Number of votes secured</th></tr></thead><tbody id='appendResults'></tbody></table><h4><strong><div class='row' id='winner' style='padding-left:20px;'></h4></strong><div>");
+		//here counting is done using a simple hashing method to store votes into sum.		
 		for(var k=1;k<d;k++)
 		{
 			voteIndex=register.testing(electionID,k);
@@ -158,6 +160,7 @@ else
 				//console.log(sum[voteIndex.c[0]]);
 				}
 		}	
+		//finding the largest vote secured by one or more candidates.
 		for(var k=1;k<c;k++)
 		{
 		if(!jQuery.isEmptyObject(candidates[k][0]))
@@ -170,9 +173,31 @@ else
 				}			
 			}		
 		}
-		
+		var tie=0;var checkTie=0;
+		//checktie flag is used to show tie between candidates if there is one.
+		for(var h=0;h<c;h++)
+			{
+			if(h!=winner)
+				{
+				if(sum[h]==sum[winner])
+				{checkTie=1;}
+				}
+			}
+		if(checkTie==1)
+		{
+		$("#winner").append("The election is a tie between :- ");
+		for(var h=1;h<c;h++)
+			{
+			
+			if(sum[h]==sum[winner]&&!jQuery.isEmptyObject(candidates[h][0]))
+				{$("#winner").append("|| "+candidates[h]+" ");}			
+			}
+		}
+		else
+		{
 		$("#winner").append("The winning candidate is:"+candidates[winner]);
-		$("#stats").append("<br><br><button class='btn btn-primary' type='button' data-target='#myModal' data-toggle='modal'>Get Election Stats.</button>");
+		}		
+		$("#stats").append("<br><br><button class='btn btn-primary' type='button' data-target='#myModal' data-toggle='modal'>Get Election Stats</button>");
 		var data = [{
   			values: [],
   			labels: [],
