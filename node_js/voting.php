@@ -518,6 +518,7 @@ $(document).on("click", ".open-vote", function () {
 		}
 	c=0;d=0;
 	$(castvote).click(function () {console.log("in this thing");
+	alert("Your vote has been cast! Page will reload once Ok is clicked.");
 		for(k=1;k<=50;k++)
 				{
 				if(candidates[c++]==$("#candidate").val())
@@ -531,6 +532,7 @@ $(document).on("click", ".open-vote", function () {
 	
 
 	var voteHash=register.votingInfo(electionID,cid,pid,{gas:400000});
+	
 	$.ajax({ 	
        url: 'http://localhost/only_req_files/examples/votecast.php',
        dataType: 'text',
@@ -541,7 +543,10 @@ $(document).on("click", ".open-vote", function () {
 		}
        
     });
-	window.location.reload();	
+	$( document ).ajaxStop(function() {
+  	window.location.reload();	
+	});
+		
 	});
     $('#vote').modal('show');
 });
