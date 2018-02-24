@@ -1,7 +1,5 @@
 pragma solidity ^0.4.11;
 
-
-
 contract Register {
    struct newUser{
     uint id;
@@ -23,8 +21,18 @@ contract Register {
     uint count;
    }
    
+   struct electionData{
+   uint id;
+   uint[100] candidateList;
+   uint[100] participantList;
+   string start;
+   string stop;
+   }
+
     mapping (string => log) logData;
     mapping (uint => newUser) user;
+    mapping (uint=>electionData) edata;
+
     uint public count = 0;
     
     function registerUser(uint id,string name, string email, string password, uint age, string add,uint mobile, uint status,string message,string image_hash){
@@ -80,6 +88,13 @@ contract Register {
         return;
 
     }
+    function getUserByID(uint ID)
+    constant returns (string email)
+    {   
+        email=user[ID].email;
+        return;
+
+    }
      function getUserByEmailForRegistration(string electronicmail)
     constant returns (uint id, string name, string email, string password, uint age, string add,uint mobile, uint status , string image_hash)
     {
@@ -128,4 +143,92 @@ contract Register {
         return;
     }
     
+    function addElectionCandidate(uint electionID,string candidate)
+    {
+        uint cid;
+        for(uint i=0;i<count;i++)
+            {
+                if(sha3(user[i].email)==sha3(candidate))
+                    {
+                        cid=user[i].id;
+                        break;
+                    }
+            }
+        edata[electionID].candidateList[cid]=999;
+    }
+    function addElectionParticipant(uint electionID,string participant)
+    {
+        uint pid;
+        for(uint i=0;i<count;i++)
+            {
+                if(sha3(user[i].email)==sha3(participant))
+                    {
+                        pid=user[i].id;
+                        break;
+                    }
+            }
+        edata[electionID].participantList[pid]=999;
+    }
+    function addStartStop(uint electionID,string start,string stop)
+    {
+        edata[electionID].start=start;
+        edata[electionID].stop=stop;
+        edata[electionID].id=electionID;
+    }
+    function returnElectionID(uint electionID) constant returns (uint eid,string start,string stop)
+    {
+        eid=edata[electionID].id;
+        stop=edata[electionID].stop;
+        start=edata[electionID].start;
+        return;
+    }
+    function returnCandidateList(uint electionID,uint id) constant returns (string candidate)
+    {
+        if(edata[electionID].candidateList[id]!=0)
+        
+            {uint cid=id;
+            for(uint i=0;i<count;i++)
+                {
+                    if(user[i].id==cid)
+                    {
+                    candidate=user[i].email;
+                    return;
+                    }
+                    
+                }
+            }
+        
+    }
+    function checkIfVoted(uint electionID,uint id) constant returns (bool a)
+    {
+        if(edata[electionID].participantList[id]==999)
+            {return false;}
+        else 
+            {return true;}
+    }
+    function returnParticipantList(uint electionID,uint id) constant returns (string participant)
+    {
+        if(edata[electionID].participantList[id]!=0)
+        
+            {uint pid=id;
+            for(uint i=0;i<count;i++)
+                {
+                    if(user[i].id==pid)
+                    {
+                    participant=user[i].email;
+                    return;
+                    }
+                    
+                }
+            }
+    }
+    function votingInfo(uint electionID,uint cid,uint pid)
+    {   
+        edata[electionID].participantList[pid]=cid;
+    }
+    function testing(uint electionID,uint pid) constant returns (uint va)
+    {
+        va=edata[electionID].participantList[pid];
+        return;
+    }
 }
