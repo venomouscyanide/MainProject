@@ -45,6 +45,14 @@ include_once('navbar_voting.php');
 			
 			</div>
 		</div>
+		<div class="row">
+			<div class="row-md-12 mx-auto"><h4>
+			Past elections you participated in.			
+			</h4></div>
+			<div class="col-md-12" id="dormant">
+			<strong>Please note that these elections are no longer active.</strong>
+			</div>
+		</div>
 	</div>
 	</div>
 
@@ -296,7 +304,7 @@ var c=1;var d=1;
 		if(participants[h]==details[2])
 			{var check;
 			console.log("success");//so the present user takes part in election id[i]. Display these details	
-			check=register.checkIfVoted(electionID[i][0].c[0],details[0]);
+			check=register.checkIfVoted(electionID[i][0].c[0],h);
 			//now we have to check if the given election is active or not. For this compare the starting and ending dates as below.[LONG CODE COULD BE REUSED]
 			var today = moment().format('MM/DD/YYYY');
 			var dayCurrentString=today.slice(3,5);var dayCurrentInt=parseInt(dayCurrentString);
@@ -403,8 +411,74 @@ var c=1;var d=1;
 						//}
 					$("#voted").append("<br>You voted for : <strong> "+candidateVotedFor+" </strong>");
 					$("#voted").append("<br><button type='button' class='open-vote btn btn-primary' data-id="+electionID[i][0].c[0]+" data-cast=1 data-prev="+candidates[votedFor]+" data-target='#vote' data-toggle='modal'>ReCast your vote</button>");	
+					$("#voted").append("<hr>");
 				}
-			}
+			
+			else if(check==true && active=="Inactive")
+				{
+				console.log(h);
+				$("#dormant").append("<hr>Election ID: <strong>"+electionID[i][0].c[0]+"</strong><br>"+"Candidates that stood	:");
+					for(var n=1;n<c;n++)
+						{
+						if(!jQuery.isEmptyObject(candidates[n][0]))
+							{
+							$("#dormant").append(" <strong>  "+candidates[n]+" | </strong>");
+							
+							}
+						}
+				var votedFor=register.testing(electionID[i][0].c[0],h);
+				var candidateVotedFor=candidates[votedFor];console.log("return ="+candidateVotedFor);
+				$("#dormant").append("<br>You voted for : <strong> "+candidateVotedFor+" </strong>");
+				//winner of the election logic copy paste from admin section
+				var largest=0;var sum=new Array(1000).fill(0);var winner;
+				for(var q=1;q<d;q++)
+				{
+					var voteIndex=register.testing(electionID[i][0].c[0],q);
+					if((voteIndex.c[0]!=999)&&(voteIndex.c[0]!=0))
+						{sum[voteIndex.c[0]]=sum[voteIndex.c[0]]+1;
+						//console.log(sum[voteIndex.c[0]]);
+						}
+				}	
+				//finding the largest vote secured by one or more candidates.
+				
+				for(var q=1;q<c;q++)
+				{
+				if(!jQuery.isEmptyObject(candidates[q][0]))
+					{
+					if(sum[q]>=largest)
+						{
+						largest=sum[q];
+						winner=q;			
+						}			
+					}		
+				}
+				var tie=0;var checkTie=0;
+				//checktie flag is used to show tie between candidates if there is one.
+				for(var w=0;w<c;w++)
+					{
+					if(w!=winner)
+						{
+						if(sum[w]==sum[winner])
+						{checkTie=1;}
+						}
+					}
+				if(checkTie==1)
+				{
+				$("#dormant").append("<br> The election was a tie between :-");
+				for(var w=1;w<c;w++)
+					{
+			
+					if(sum[w]==sum[winner]&&!jQuery.isEmptyObject(candidates[w][0]))
+						{$("#dormant").append("<strong> "+candidates[w]+" |</strong>");}			
+					}
+				}
+				else
+				{
+				$("#dormant").append("<br>The winning candidate of this election was : <strong>"+candidates[winner]+"</strong>");
+				}
+					$("#dormant").append("<hr>");	
+				}
+		}	
 	}
 candidates=[];participants=[];
 }	
@@ -457,6 +531,16 @@ $(document).on("click", ".open-vote", function () {
 	
 
 	var voteHash=register.votingInfo(electionID,cid,pid,{gas:400000});
+	$.ajax({ 	
+       url: 'http://localhost/only_req_files/examples/votecast.php',
+       dataType: 'text',
+	   type:'POST',
+	   data:{'electionid':electionID},
+       success: function(data){
+	   console.log("hey");
+		}
+       
+    });
 	window.location.reload();	
 	});
     $('#vote').modal('show');

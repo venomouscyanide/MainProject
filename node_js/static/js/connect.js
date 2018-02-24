@@ -518,5 +518,5 @@ if (typeof web3 !== 'undefined') {
 		"type": "function"
 	}
 ]);       
-	var register = registerUser.at('0x4ee940008d8c8e97e4acbfd14d3daefdde83f4b2');
+	var register = registerUser.at('0x68e483e20e8d8073913ab3392d7dbd61ab947dec');
 	console.log(register);

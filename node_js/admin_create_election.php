@@ -104,10 +104,66 @@ for(var i=0;i<w;i++)
 		{var temp=userList[i];
 		var pos=temp.indexOf('@');
 		var temp1=temp.slice(0,pos);
-		$("#appendCandidate").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input' type='checkbox' id="+temp1+1+" ><label class='form-check-label' for="+temp1+1+">"+temp1+"@gmail.com</label></div>");
-		$("#appendParticipant").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input' type='checkbox' id="+temp1+2+" ><label class='form-check-label' for="+temp1+2+">"+temp1+"@gmail.com</label></div>");}
+		$("#appendCandidate").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input checkSingle1' type='checkbox' id="+temp1+1+" ><label class='form-check-label' for="+temp1+1+">"+temp1+"@gmail.com</label></div>");
+		$("#appendParticipant").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input checkSingle2' type='checkbox' id="+temp1+2+" ><label class='form-check-label' for="+temp1+2+">"+temp1+"@gmail.com</label></div>");}
 	}
+$("#appendCandidate").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input' type='checkbox' id='checkall1' ><label class='form-check-label' for='checkall1'>Select all candidates</label></div>");
+$("#appendParticipant").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input' type='checkbox' id='checkall2' ><label class='form-check-label' for='checkall2'>Select all participants</label></div>");
+//now to check all for candidates and for participants
+//for candidates
+$(document).ready(function() {
+  $("#checkall1").change(function(){
+    if(this.checked){
+      $(".checkSingle1").each(function(){
+        this.checked=true;
+      })              
+    }else{
+      $(".checkSingle1").each(function(){
+        this.checked=false;
+      })              
+    }
+  });
 
+  $(".checkSingle1").click(function () {
+    if ($(this).is(":checked")){
+      var isAllChecked = 0;
+      $(".checkSingle1").each(function(){
+        if(!this.checked)
+           isAllChecked = 1;
+      })              
+      if(isAllChecked == 0){ $("#checkall1").prop("checked", true); }     
+    }else {
+      $("#checkall1").prop("checked", false);
+    }
+  });
+});
+//for participants
+$(document).ready(function() {
+  $("#checkall2").change(function(){
+    if(this.checked){
+      $(".checkSingle2").each(function(){
+        this.checked=true;
+      })              
+    }else{
+      $(".checkSingle2").each(function(){
+        this.checked=false;
+      })              
+    }
+  });
+
+  $(".checkSingle2").click(function () {
+    if ($(this).is(":checked")){
+      var isAllChecked = 0;
+      $(".checkSingle2").each(function(){
+        if(!this.checked)
+           isAllChecked = 1;
+      })              
+      if(isAllChecked == 0){ $("#checkall2").prop("checked", true); }     
+    }else {
+      $("#checkall2").prop("checked", false);
+    }
+  });
+});
 //console.log($('#datepickerStart').val());
 $('#startElection').click(function(){
 var id=$("#electionID").val();
