@@ -28,19 +28,13 @@ contract Register {
    string start;
    string stop;
    }
-   struct report{
-    uint id;
-    string message;
-    string email;
-    uint inactive;
-   }
 
     mapping (string => log) logData;
     mapping (uint => newUser) user;
     mapping (uint=>electionData) edata;
-    mapping (uint=>report)rpt;
+
     uint public count = 0;
-    uint public reportNo=0;
+    
     function registerUser(uint id,string name, string email, string password, uint age, string add,uint mobile, uint status,string message,string image_hash){
     uint time_stamp=Time_call();
     uint blockNumber=block.number;
@@ -256,29 +250,5 @@ contract Register {
                 add="NULL";
             }
         return;
-    }
-    
-    function addReport(string msg,string email) 
-    {   
-        rpt[reportNo].email=email;
-        rpt[reportNo].message=msg;
-        rpt[reportNo].id=reportNo;
-        reportNo++;
-    }
-    
-    function getReport(uint no) constant returns (uint id,string email,uint inactive,string message)
-    {
-        id=rpt[no].id;
-        email=rpt[no].email;
-        inactive=rpt[no].inactive;
-        message=rpt[no].message;
-        return;
-    }
-    function deactivateReport(string email,uint no)
-    {
-        if(sha3(rpt[no].email)==sha3(email))
-            {
-                rpt[no].inactive=1;
-            }
     }
 }

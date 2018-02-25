@@ -124,6 +124,20 @@ if (typeof web3 !== 'undefined') {
 	},
 	{
 		"constant": true,
+		"inputs": [],
+		"name": "reportNo",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"name": "ID",
@@ -247,6 +261,37 @@ if (typeof web3 !== 'undefined') {
 		"constant": true,
 		"inputs": [
 			{
+				"name": "no",
+				"type": "uint256"
+			}
+		],
+		"name": "getReport",
+		"outputs": [
+			{
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"name": "email",
+				"type": "string"
+			},
+			{
+				"name": "inactive",
+				"type": "uint256"
+			},
+			{
+				"name": "message",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
 				"name": "electronicmail",
 				"type": "string"
 			},
@@ -337,6 +382,57 @@ if (typeof web3 !== 'undefined') {
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "count",
+				"type": "uint256"
+			},
+			{
+				"name": "electronicmail",
+				"type": "string"
+			}
+		],
+		"name": "allEdits",
+		"outputs": [
+			{
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"name": "email",
+				"type": "string"
+			},
+			{
+				"name": "password",
+				"type": "string"
+			},
+			{
+				"name": "age",
+				"type": "uint256"
+			},
+			{
+				"name": "image_hash",
+				"type": "string"
+			},
+			{
+				"name": "time_stamp",
+				"type": "uint256"
+			},
+			{
+				"name": "mobile",
+				"type": "uint256"
+			},
+			{
+				"name": "add",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [],
 		"name": "Time_call",
@@ -408,6 +504,24 @@ if (typeof web3 !== 'undefined') {
 		"constant": false,
 		"inputs": [
 			{
+				"name": "msg",
+				"type": "string"
+			},
+			{
+				"name": "email",
+				"type": "string"
+			}
+		],
+		"name": "addReport",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "electionID",
 				"type": "uint256"
 			},
@@ -441,6 +555,24 @@ if (typeof web3 !== 'undefined') {
 				"type": "uint256"
 			}
 		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "email",
+				"type": "string"
+			},
+			{
+				"name": "no",
+				"type": "uint256"
+			}
+		],
+		"name": "deactivateReport",
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -518,5 +650,5 @@ if (typeof web3 !== 'undefined') {
 		"type": "function"
 	}
 ]);       
-	var register = registerUser.at('0x68e483e20e8d8073913ab3392d7dbd61ab947dec');
+	var register = registerUser.at('0xefce472bcf5fde969fbfcdaebdb5ae0b95d3b333');
 	console.log(register);

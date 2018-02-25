@@ -30,14 +30,14 @@
 		<li class="nav-item ">
 			<a class="nav-link" href="http://localhost/node_js/admin_loggedin.php">Election Info</a>
 		</li>
-		<li class="nav-item">
+		<li class="nav-item ">
 			<a class="nav-link" href="http://localhost/node_js/admin_create_election.php">Start an election</a>
 		</li>
-		<li class="nav-item active">
-			<a class="nav-link" href="#">User logs</a>
-		</li>
 		<li class="nav-item ">
-			<a class="nav-link" href="http://localhost/node_js/admin_report.php">Reports</a>
+			<a class="nav-link" href="http://localhost/node_js/admin_logs.php">User logs</a>
+		</li>
+		<li class="nav-item active">
+			<a class="nav-link" href="#">Reports</a>
 		</li>
 	</ul>
 	<ul class="navbar-nav ml-auto">

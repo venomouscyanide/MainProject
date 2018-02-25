@@ -96,6 +96,11 @@ session_destroy();
 	</div>
 </div>
 
+<div class="row">
+	<div class="col-md-2 mx-auto" ">
+		<button type="button" class="btn btn-link" data-toggle="modal" data-target="#report" style="color:red;">Trouble logging in? Report it now.</button>	
+	</div>
+</div>
 
 <div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -237,13 +242,36 @@ session_destroy();
   </div>
 </div>
 <!-- modal code ends here-->
-<script>  
-	
-	
+<!--modal code for reporting-->
+<div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle" style="color:black;">Report an issue to the admin.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color:black;">
+       <div class="form-group">
+				<label for="exampleName1" >Email Id</label>
+				<input class="form-control"  id="report_email" type="text" placeholder="youremail@domain.com">
+	  </div>		
+	  <div class="form-group">
+				<label for="exampleTextarea" >Message</label>
+				<textarea class="form-control" id="report_message" rows="3" placeholder="Type your issue here"></textarea>		
+	  </div>
+	  <div class="row">
+		<div class="row mx-auto">
+			<button type="button" class="btn btn-primary" id="report_submit" >Submit report</button> 		
+		</div>
+	  </div>
+	  </div>
+    </div>
+  </div>
+</div>
 
-</script>
-		
-		<script>
+<script>  
 
 		
 	var important;	
@@ -344,6 +372,15 @@ session_destroy();
 		document.getElementById('login_fail').innerHTML="Invalid Username/Password";
 		console.log("What a  bummer >.<");
 	}
+	});
+	
+	//here is the script for handling the reports
+	$("#report_submit").click(function()
+	{
+	var reportHash=register.addReport($("#report_message").val(),$("#report_email").val(),{gas:200000});
+	console.log(reportHash);
+	alert("Your report has been submitted successfully!");
+	window.location.reload();
 	});
 
 	</script>

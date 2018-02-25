@@ -36,6 +36,9 @@
 		<li class="nav-item ">
 			<a class="nav-link" href="http://localhost/node_js/admin_logs.php">User logs</a>
 		</li>
+		<li class="nav-item ">
+			<a class="nav-link" href="http://localhost/node_js/admin_report.php">Reports</a>
+		</li>
 	</ul>
 	<ul class="navbar-nav ml-auto">
 		<li class="nav-item dropdown">
