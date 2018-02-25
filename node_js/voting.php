@@ -389,6 +389,7 @@ var c=1;var d=1;
 							}
 						}
 					$("#notvoted").append("<br><button type='button' class='open-vote btn btn-primary' data-id="+electionID[i][0].c[0]+" data-cast=0 data-target='#vote' data-toggle='modal'>Cast your vote</button>");	
+					$("#notvoted").append("<br>Last date: <strong>"+end+"</strong>");					
 					$("#notvoted").append("<hr>");
 				}
 			else if(check==true && active=="Active")
@@ -410,7 +411,8 @@ var c=1;var d=1;
 							 
 						//}
 					$("#voted").append("<br>You voted for : <strong> "+candidateVotedFor+" </strong>");
-					$("#voted").append("<br><button type='button' class='open-vote btn btn-primary' data-id="+electionID[i][0].c[0]+" data-cast=1 data-prev="+candidates[votedFor]+" data-target='#vote' data-toggle='modal'>ReCast your vote</button>");	
+					$("#voted").append("<br><button type='button' class='open-vote btn btn-primary' data-id="+electionID[i][0].c[0]+" data-cast=1 data-prev="+candidates[votedFor]+" data-target='#vote' data-toggle='modal'>ReCast your vote</button>");
+					$("#voted").append("<br>Last date: <strong>"+end+"</strong>");	
 					$("#voted").append("<hr>");
 				}
 			
