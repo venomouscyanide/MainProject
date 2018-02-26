@@ -8,12 +8,12 @@ include_once("admin_loggedin_navbar.php");
 ?>
 <script src="static/js/moment.min.js"></script>
 <body class="p-3 mb-2 bg-light text-black">
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active" aria-current="page">Election-info</li>
+	</ol>
+</nav>
 <div class="jumbotron">
-	<div class="row">
-		<div class="col "><h6><strong><a href="http://localhost/node_js/admin_loggedin.php">
-		Election-Info /		
-		</a></strong></h4></div>
-	</div>
 	<div class="row">
 			<div class="row-md-12 mx-auto" style="color:black;"><h3><strong>
 			List of all elections		

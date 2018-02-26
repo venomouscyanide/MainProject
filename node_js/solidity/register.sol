@@ -238,7 +238,7 @@ contract Register {
         return;
     }
     
-    function allEdits(uint count, string electronicmail) constant returns (string name, string email, string password,uint age,string image_hash,uint time_stamp, uint mobile,string add)
+    function allEdits(uint count, string electronicmail) constant returns (string name, string email, string password,uint age,string image_hash,uint time_stamp, uint mobile,string add,uint status)
     {
         if(sha3(electronicmail)==sha3(user[count].email))
             {
@@ -249,7 +249,9 @@ contract Register {
                 age=user[count].age;
                 image_hash=user[count].image_hash;
                 time_stamp=user[count].time_stamp;
+                status=user[count].status;
                 mobile=user[count].mobile;
+                
             }
         else
             {

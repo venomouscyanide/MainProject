@@ -9,14 +9,16 @@ $activity=$_GET['activity'];
 <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
 
 <body class="p-3 mb-2 bg-light text-black">
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="http://localhost/node_js/admin_loggedin.php">Election-info</a></li>
+		<li class="breadcrumb-item active" aria-current="page">More-info</li>
+	</ol>
+</nav>
 
 <div class="jumbotron">
 
-	<div class="row">
-		<div class="col "><h6><strong><a href="http://localhost/node_js/admin_loggedin.php">
-		Election-Info /		
-		</a>More info</strong></h4></div>
-	</div>
+	
 	<!-- copy paste here -->
 	<div class="row">
 		<div class="col-sm-6">

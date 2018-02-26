@@ -49,7 +49,7 @@ $mail->addAddress($_SESSION['email'], 'User');
 
 $mail->isHTML(true);                                  // Set email format to HTML
 $mail->Subject = 'Your profile information has been changed';
-$mail->Body    = 'Dear user, ypur profile has been updated. Please login to view the changes.<br><br><br><br>Regards,<br>admin@BVCinc.com';
+$mail->Body    = 'Dear user, your profile has been updated. Please login to view the changes.<br><br><br><br>Regards,<br>admin@BVCinc.com';
 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 
