@@ -4,6 +4,14 @@ include_once("admin_loggedin_navbar.php");
 $id=$_GET['id'];
 $activity=$_GET['activity'];
 ?>
+<script>
+var data = sessionStorage.getItem('flag5');
+if(data==0)
+	{
+	document.write("<strong style='color:black;font-size:20px;'>Permission Denied!</strong>");
+	window.stop();	
+	}
+</script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <!-- Numeric JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>

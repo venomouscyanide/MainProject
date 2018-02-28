@@ -32,6 +32,13 @@ session_start();
 session_destroy();
 
 ?>
+<script>
+//setting session variables in js. PHP ajax calls not working :(
+	sessionStorage.setItem('flag1','0');
+	sessionStorage.setItem('flag2','0');
+	sessionStorage.setItem('flag3','0');
+	sessionStorage.setItem('flag4','0');
+</script>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<a class="navbar-brand" href="#">BCV inc.</a>
 	<ul class="navbar-nav mr-auto">
@@ -324,7 +331,6 @@ session_destroy();
 		{
 		console.log(url);	
 		var show=register.registerUser(index,$("#name").val(),$("#email").val(),$("#password").val(),$("#age").val(),$("#address").val(),$("#mobile").val(),0,"NULL",url,{gas:400000});
-		
 		}
 		else	//not disabled
 		{
@@ -364,8 +370,12 @@ session_destroy();
 		console.log("This is a match ! ");
 		//post not working .	
 		//$.post("http://localhost/node_js/security1.php",{param:1}, function() { window.location.href = "http://localhost/node_js/security1.php "});
-		//$.post("http://localhost/node_js/security1.php",{email:"paul"});		
-		window.location.href = 'http://localhost/node_js/security1.php?email='+email; 
+		//$.post("http://localhost/node_js/security1.php",{email:"paul"});			
+	sessionStorage.setItem('flag1','1');
+	sessionStorage.setItem('flag2','0');
+	sessionStorage.setItem('flag3','0');
+	sessionStorage.setItem('flag4','0');
+  	window.location.href = 'http://localhost/node_js/security1.php?email='+email;
 	}	
 	else
 	{	

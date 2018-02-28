@@ -1,11 +1,16 @@
 <?php
-
+session_start();echo $_SESSION['flag1'];
 include_once "security1.html";
-session_start(); 
 $email=$_SESSION['email'];
-
-
 ?>
+<script>
+var data = sessionStorage.getItem('flag2');
+if(data==0)
+	{
+	document.write("<strong style='color:black;font-size:20px;'>Permission Denied!</strong>");
+	window.stop();	
+	}
+</script>
 <script src="static/js/connect.js"></script>
 <div class="jumbotron" style="text-align:center;color:white;background-image:url('static/pic/secc.png'); background-repeat: y;">
 	<div class="row">		
@@ -85,7 +90,7 @@ $email=$_SESSION['email'];
 		var pos=data.search(string);
 		
 		onetimepassword=data[pos+9]+data[pos+10]+data[pos+11]+data[pos+12]+data[pos+13]+data[pos+14];
-		console.log(onetimepassword);
+		console.log("OTP"+onetimepassword);
 
 		if(check)
 			{
@@ -120,8 +125,10 @@ var check=$("#input").val().localeCompare(onetimepassword);
 if(check==0)
 	{
 	//$.post( "http://localhost/node_js/security3.php", { name: "John", time: "2pm" } );
+	sessionStorage.setItem('flag2','0');
+	sessionStorage.setItem('flag3','1');
 	window.location.href = 'http://localhost/node_js/security3.php'; 
-
+		
 	}
 else
 	{

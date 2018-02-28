@@ -1,11 +1,11 @@
 <?php
 	// Account details
-	$apiKey = urlencode('8ZS3H5SrJzU-YnSC68ldsaTIMm8wZsFsODGTS7WrMS');
+	$apiKey = urlencode('tw/NNCriMIY-YRSm5DMPyOVjPtT36DKgOwOfulUGIW');
 	
 	// Message details
 	$numbers = array($_GET['mobile']);
 	$sender = urlencode('TXTLCL');
-	$random_number = intval( rand(0,9) . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+	$random_number = intval( rand(1,9) . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
 	$message = 'Your OTP is :'.$random_number;
 	
  

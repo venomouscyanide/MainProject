@@ -2,6 +2,14 @@
 session_start();
 include_once("admin_create_election_navbar.php");
 ?>
+<script>
+var data = sessionStorage.getItem('flag5');
+if(data==0)
+	{
+	document.write("<strong style='color:black;font-size:20px;'>Permission Denied!</strong>");
+	window.stop();	
+	}
+</script>
 	<link rel="stylesheet" href="../jquery-ui/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -11,9 +19,9 @@ include_once("admin_create_election_navbar.php");
 			<div class="row mx-auto">
 	
 				<div class="row md-12 mx-auto">
-					<div class="col"><strong><h3>
+					<div class="col"><h3><strong>
 					Start an election
-					</h3></strong></div>		
+					</strong></h3></div>		
 				</div>
 			
 			</div>
@@ -78,8 +86,8 @@ $( function() {
 	$( "#datepickerStart" ).datepicker();
 	$( "#datepickerEnd" ).datepicker();
 });
-var flag;
-var userList=new Array(1000);var user;var w=0;
+var flag;var temporary;
+var userList=new Array(1000);var user;var w=0;var userID=new Array(100);
 for(var i=0;i<100;i++)
 	{flag=0;
 	user=register.getUserByID(i);
@@ -93,19 +101,21 @@ for(var i=0;i<100;i++)
 		}
 	if(flag==0)
 		{
-		userList[w++]=user;
+		userList[w]=user;
+		temporary=register.getUserByEmail(user);
+		userID[w]=temporary[0];
+		w=w+1;		
 		}	
 	}
-
+console.log(w);
 console.log(userList);
+console.log(userID);
 for(var i=0;i<w;i++)
 	{
 	if(!jQuery.isEmptyObject(userList[i][0]))
-		{var temp=userList[i];
-		var pos=temp.indexOf('@');
-		var temp1=temp.slice(0,pos);
-		$("#appendCandidate").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input checkSingle1' type='checkbox' id="+temp1+1+" ><label class='form-check-label' for="+temp1+1+">"+temp1+"@gmail.com</label></div>");
-		$("#appendParticipant").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input checkSingle2' type='checkbox' id="+temp1+2+" ><label class='form-check-label' for="+temp1+2+">"+temp1+"@gmail.com</label></div>");}
+		{
+		$("#appendCandidate").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input checkSingle1' type='checkbox' id="+userID[i]+1+" ><label class='form-check-label' for="+userID[i]+1+">"+userList[i]+"</label></div>");
+		$("#appendParticipant").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input checkSingle2' type='checkbox' id="+userID[i]+2+" ><label class='form-check-label' for="+userID[i]+2+">"+userList[i]+"</label></div>");}
 	}
 $("#appendCandidate").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input' type='checkbox' id='checkall1' ><label class='form-check-label' for='checkall1'>Select all candidates</label></div>");
 $("#appendParticipant").append("<div class='form-check form-check-inline' style='padding-left:15px;'><input class='form-check-input' type='checkbox' id='checkall2' ><label class='form-check-label' for='checkall2'>Select all participants</label></div>");
@@ -171,9 +181,7 @@ register.addStartStop($("#electionID").val(),$("#datepickerStart").val(),$("#dat
 
 //console.log(hash);
 for(var k=0;k<w;k++)
-{	var temp=userList[k];
-	var pos=temp.indexOf('@');
-	var temp1=temp.slice(0,pos);console.log(temp1);
+{	var temp1=userID[k];
 	if($("#"+temp1+1+"").prop("checked"))
 	{
 		//console.log("hey");
@@ -181,10 +189,8 @@ for(var k=0;k<w;k++)
 	}
 }
 for(var k=0;k<w;k++)
-{	var temp=userList[k];
-	var pos=temp.indexOf('@');
-	var temp1=temp.slice(0,pos);
-	if($("#"+temp1+2+"").prop("checked"))
+{	var temp2=userID[k];
+	if($("#"+temp2+2+"").prop("checked"))
 	{	
 		//console.log("bye");
 		register.addElectionParticipant(id,userList[k],{gas:400000});

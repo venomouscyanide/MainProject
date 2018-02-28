@@ -10,6 +10,14 @@ include_once('navbar_voting.php');
   margin-top:15px;
 }
 </style>
+<script>
+var data = sessionStorage.getItem('flag4');
+if(data==0)
+	{
+	document.write("<strong style='color:black;font-size:20px;'>Permission Denied!</strong>");
+	window.stop();	
+	}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
 <script src="static/js/moment.min.js"></script>
 <script src="static/js/connect.js"></script>
@@ -710,8 +718,11 @@ var index=details[0];
 //index=index+1;
 var email=details[2];
 var status=details[7].c[0];
-var msg=details[8];
-var show=register.registerUser(index,$("#name_edit").val(),email,$("#password_edit").val(),$("#age_edit").val(),$("#address_edit").val(),$("#mobile_edit").val(),status,msg,url,{gas:400000});
+var urlOld=details[8];
+//console.log(details);
+//console.log("details"+index+$("#name_edit").val()+email,$("#password_edit").val()+$("#age_edit").val()+$("#address_edit").val()+$("#mobile_edit").val()+"status :"+status+"message"+msg+"URL"+url);
+
+var show=register.registerUser(index,$("#name_edit").val(),email,$("#password_edit").val(),$("#age_edit").val(),$("#address_edit").val(),$("#mobile_edit").val(),status,"",url,{gas:400000});
 $('#edit').modal('toggle');
 window.location.reload(true);
 });

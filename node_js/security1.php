@@ -1,11 +1,17 @@
 <?php
-include_once "security1.html";
-session_start(); 
-$_SESSION['email']=$_GET['email'];
-
-
+session_start();
+include_once "security1.html"; 
+if($_GET['email'])
+	$_SESSION['email']=$_GET['email'];
 ?>
-
+<script>
+var data = sessionStorage.getItem('flag1');
+if(data==0)
+	{
+	document.write("<strong style='color:black;font-size:20px;'>Permission Denied!</strong>");
+	window.stop();	
+	}
+</script>
 <div class="jumbotron" style="text-align:center;color:white;background-image:url('static/pic/secc.png'); background-repeat: y;">
 	<div class="row">		
 		<div class="col-sm-12" style="text-align:fill;">			
@@ -97,6 +103,8 @@ $('#submit').click(function()
 var check=$("#input").val().localeCompare(onetimepassword);
 if(check==0)
 	{
+	sessionStorage.setItem('flag1','0');
+	sessionStorage.setItem('flag2','1');
 	window.location.href = 'http://localhost/node_js/security2.php'; 
 	}
 else

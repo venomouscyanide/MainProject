@@ -654,5 +654,5 @@ if (typeof web3 !== 'undefined') {
 		"type": "function"
 	}
 ]);       
-	var register = registerUser.at('0x46df0123bdb57adad1e0be1320c52da6048376df');
+	var register = registerUser.at('0xc63ffe31c228e7be63791c83fc5f5d329669fc60');
 	console.log(register);

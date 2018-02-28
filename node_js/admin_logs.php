@@ -2,6 +2,14 @@
 session_start();
 include_once("admin_logs_navbar.php");
 ?>
+<script>
+var data = sessionStorage.getItem('flag5');
+if(data==0)
+	{
+	document.write("<strong style='color:black;font-size:20px;'>Permission Denied!</strong>");
+	window.stop();	
+	}
+</script>
 <body class="p-3 mb-2 bg-light text-black">
 
 <div class="jumbotron hey2">

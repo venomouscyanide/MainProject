@@ -6,6 +6,14 @@ $_SESSION['email']=$_GET['email'];
 }
 include_once("admin_loggedin_navbar.php");
 ?>
+<script>
+var data = sessionStorage.getItem('flag5');
+if(data==0)
+	{
+	document.write("<strong style='color:black;font-size:20px;'>Permission Denied!</strong>");
+	window.stop();	
+	}
+</script>
 <script src="static/js/moment.min.js"></script>
 <body class="p-3 mb-2 bg-light text-black">
 <nav aria-label="breadcrumb">

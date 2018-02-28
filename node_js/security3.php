@@ -1,9 +1,16 @@
 <?php
-include_once "security1.html";
 session_start();
-
+include_once "security1.html";
 
 ?>
+<script>
+var data = sessionStorage.getItem('flag3');
+if(data==0)
+	{
+	document.write("<strong style='color:black;font-size:20px;'>Permission Denied!</strong>");
+	window.stop();	
+	}
+</script>
 <script src="static/js/connect.js"></script>
 <link rel="stylesheet" href="static/css/mycss.css">
 <div class="jumbotron" style="text-align:center;color:white;background-image:url('static/pic/secc.png'); background-repeat: y;">
@@ -182,7 +189,9 @@ success: function (data) {
                 + currentdate.getMinutes() + ":" 
                 + currentdate.getSeconds();
 				var hash=register.addLogData('<?php echo $_SESSION["email"]; ?>',datetime,{gas:200000});
-				console.log(hash);				
+				console.log(hash);		
+				sessionStorage.setItem('flag3','0');
+				sessionStorage.setItem('flag4','1');								
 				window.location.href="http://localhost/node_js/voting.php"
 				}
 				else

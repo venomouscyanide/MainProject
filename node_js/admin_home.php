@@ -6,6 +6,9 @@ session_start();
 session_destroy();
 include_once("admin_navbar.html");
 ?>
+<script>
+	sessionStorage.setItem('flag5','0');
+</script>
 <body class="p-3 mb-2 bg-light text-white">
 
 <div class="jumbotron" style="text-align:center;color:black;background-image:url('static/pic/blockchain.png');">
@@ -83,7 +86,10 @@ else
 			if(details[7].c[0]==0)
 				{document.getElementById('invalid').innerHTML="This user is not an admin";}
 			else
-				{window.location.href="http://localhost/node_js/admin_loggedin.php?email="+details[2];}
+				{
+				sessionStorage.setItem('flag5','1');				
+				window.location.href="http://localhost/node_js/admin_loggedin.php?email="+details[2];
+				}
 		}
 		
 		
