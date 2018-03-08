@@ -317,24 +317,43 @@ session_destroy();
 
 	$("#register").click(function()
 	{
-	var exists=register.getUserByEmailForRegistration($("#email").val());
-	console.log(exists);
-	if(!exists[1]) //if does not exist then we need to clear all values and make him log in again after closing modal
+   	//register.getUserByEmailForRegistration($("#email").val(), function (error, result){})); ;
+	//const hey = await promisify(cb => register.getUserByEmailForRegistration($("#email").val(),function (error, result){}));
+	//console.log("hey");
+	register.getUserByEmailForRegistration($("#email").val(),function (error, result) {
+    if (!error) {
+      console.log("result is :"+result);
+	  
+	if(!result[1]) //if does not exist then we need to clear all values and make him log in again after closing modal
 		{	
 		
-		var a=register.getCount();   //incrementing the id for each regitered user
-		console.log("look at me ");
-		var index=a.c[0];
-		index=index+1;	
+		var a=register.getCount(function (error, result1) {
+    	if (!error) {
+      	
+		var index=result1[0]+1;	
 		console.log($('#email').val());
-		if(flag==0)	//disabled message then
+		console.log("count value is :"+index);		
+			//disabled message then
+		if(flag==0)
 		{
 		console.log(url);	
-		var show=register.registerUser(index,$("#name").val(),$("#email").val(),$("#password").val(),$("#age").val(),$("#address").val(),$("#mobile").val(),0,"NULL",url,{gas:400000});
+		register.registerUser(index,$("#name").val(),$("#email").val(),$("#password").val(),$("#age").val(),$("#address").val(),$("#mobile").val(),0,"NULL",url,function (error, result2) {
+    	if (!error) {
+      	console.log(result2);
+    	} else {
+      	console.error(error);
+    	}
+  		});
 		}
 		else	//not disabled
 		{
-		var show=register.registerUser(index,$("#name").val(),$("#email").val(),$("#password").val(),$("#age").val(),$("#address").val(),$("#mobile").val(),1,$("#optionalMessage").val(),url,{gas:400000});			
+		var show=register.registerUser(index,$("#name").val(),$("#email").val(),$("#password").val(),$("#age").val(),$("#address").val(),$("#mobile").val(),1,$("#optionalMessage").val(),url,{gas:400000},function (error, result3) {
+    	if (!error) {
+      	console.log(result3);
+    	} else {
+      	console.error(error);
+    	}
+  		});			
 		}
 		document.getElementById('email').value ="";document.getElementById('name').value ="";document.getElementById('address').value ="";document.getElementById('mobile').value ="";
 		document.getElementById('age').value ="";document.getElementById('password').value ="";document.getElementById('optionalMessage').value ="";
@@ -343,7 +362,12 @@ session_destroy();
 		$('#registration').modal('hide');
 		grecaptcha.reset();	
 		document.getElementById('please').innerHTML = "Successfully Registered ! Please log in to continue :D";
-		console.log(show);		
+		}
+    	else {
+      	//console.error(error);
+    	}
+  		});   //incrementing the id for each regitered user
+		console.log("look at me ");
 		}
 	else
 	{
@@ -351,20 +375,23 @@ session_destroy();
 	var change=document.getElementById('error');
 	change.innerHTML="Email ID is taken. Use another one.";
 	change.style.color="tomato";
-	}	
-	
+	}
+    } else {
+      console.error(error);
+    }
+  	});
 	
 	});
 
 	$("#login").click(function()
 	{
-	var details=register.getUserByEmail($("#email_id").val());
-	var email=details[2];	
+	register.getUserByEmail($("#email_id").val(),function (error, details) {
+    if (!error) {
+    console.log(details);
+    var email=details[2];	
 	var pass=details[3];
 	var check1=email.localeCompare($("#email_id").val());
 	var check2=pass.localeCompare($("#password1").val());
-	
-	
 	if(check1==0 && check2==0) //checking if both email and the passwords match
 	{
 		console.log("This is a match ! ");
@@ -382,21 +409,34 @@ session_destroy();
 		document.getElementById('login_fail').innerHTML="Invalid Username/Password";
 		console.log("What a  bummer >.<");
 	}
-	});
+	
+	} 
+	else {
+      console.error(error);
+    }
+  	});
+	
+	
+		});
 	
 	//here is the script for handling the reports
 	$("#report_submit").click(function()
 	{
-	var reportHash=register.addReport($("#report_message").val(),$("#report_email").val(),{gas:200000});
-	console.log(reportHash);
+	var reportHash=register.addReport($("#report_message").val(),$("#report_email").val(),function (error, result4) {
+    if (!error) {
+    console.log(result4);
 	alert("Your report has been submitted successfully!");
 	window.location.reload();
+	    
+	} else {
+      console.error(error);
+    }
+  	});
 	});
 
 	</script>
 
 
 </body>
-
 
 
